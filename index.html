@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habibur Rahman – MERN Stack Developer | Full-Stack Web Engineer</title>
+    <meta name="description" content="Portfolio of Habibur Rahman, MERN Stack Developer specializing in production-ready web applications, scalable Node.js/Express APIs, MongoDB, and modern React interfaces." />
+    <meta name="keywords" content="Habibur Rahman, MERN Stack Developer, Full-Stack Developer, React.js, Node.js, Express.js, MongoDB, Web Developer, Freelance Developer" />
+    <meta name="author" content="Habibur Rahman" />
+    <meta name="theme-color" content="#090D16" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Social profiles (also used by the JSON-LD block below) -->
+    <link rel="me" href="https://github.com/habiburrahman63" />
+    <link rel="me" href="https://www.linkedin.com/in/habibur-rahman-mern" />
+
+    <!-- Canonical, og:url and og:image/twitter:image are injected at build time
+         from VITE_SITE_URL (see vite.config.ts). -->
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Habibur Rahman – MERN Stack Developer | Full-Stack Web Engineer" />
+    <meta property="og:description" content="Portfolio of Habibur Rahman, MERN Stack Developer specializing in production-ready web applications, scalable Node.js/Express APIs, MongoDB, and modern React interfaces." />
+    <meta property="og:site_name" content="Habibur Rahman Portfolio" />
+    <meta property="og:image:alt" content="Habibur Rahman – MERN Stack Developer portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Habibur Rahman – MERN Stack Developer | Full-Stack Web Engineer" />
+    <meta name="twitter:description" content="Portfolio of Habibur Rahman, MERN Stack Developer specializing in production-ready web applications, scalable Node.js/Express APIs, MongoDB, and modern React interfaces." />
+
+    <!-- Apply the stored theme before first paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('portfolio_theme');
+          var isDark = stored === null || stored === 'dark';
+          document.documentElement.classList.add(isDark ? 'dark' : 'light');
+        } catch (error) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <!-- Google Fonts: Inter (body) & Sora (display) & JetBrains Mono (accents)
+
+         Inter and Sora are requested as *variable* fonts, so a single
+         woff2 covers every weight used here - far fewer requests and a
+         smaller payload than static weight lists. Inter additionally
+         carries its optical-size (opsz) axis, which index.css turns on via
+         `font-optical-sizing: auto`; that is what keeps 11px meta text
+         sturdy while letting 64px headlines render with fine, even detail.
+         Its italic axis is requested too (ital), so the testimonial quotes
+         and the contact success message use a true italic rather than a
+         synthetic oblique.
+
+         `display=swap` shows real text immediately instead of blocking the
+         first paint on the font, and the preconnects below remove the
+         DNS/TLS round-trips that normally delay the font request.
+
+         No <link rel="preload"> for the woff2 itself: Google Fonts splits
+         variable fonts into unicode-range subsets, so a hardcoded file URL
+         would not match the file the stylesheet actually requests and
+         would download the font twice. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=JetBrains+Mono:wght@400..600&family=Sora:wght@500..800&display=swap"
+    />
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Habibur Rahman",
+      "jobTitle": "MERN Stack Developer",
+      "url": "https://github.com/habiburrahman63",
+      "sameAs": [
+        "https://github.com/habiburrahman63"
+      ],
+      "email": "mailto:habib.bd.dev@gmail.com",
+      "knowsAbout": [
+        "MERN Stack",
+        "Next.js",
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Full-Stack Web Development",
+        "REST APIs",
+        "Tailwind CSS",
+        "JavaScript"
+      ]
+    }
+    </script>
+  </head>
+  <!-- Page colors are driven by index.css (`body` / `html.light body`) so the
+       very first paint already matches the stored theme. -->
+  <body class="antialiased selection:bg-emerald-500/20 selection:text-emerald-900 dark:selection:text-emerald-300">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

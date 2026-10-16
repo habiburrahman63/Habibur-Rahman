@@ -1,0 +1,354 @@
+@import "tailwindcss";
+
+/* Class based dark mode: the app toggles `.dark` on <html>, so the `dark:`
+   variant must follow that class instead of the OS `prefers-color-scheme`
+   media query (the Tailwind v4 default). Without this, light mode inherited
+   dark-variant colors from the operating system preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ------------------------------------------------------------------
+     TYPEFACES
+       Display  Sora                    Geometric, high x-height. Headlines
+                                       and brand marks only.
+       Sans     Inter                  Screen-tuned grotesque with a true
+                                       optical-size axis and real italics.
+                                       The most legible face available
+                                       for long-form on-screen reading.
+       Mono     JetBrains Mono         Unchanged; anchors the technical
+                                       accents (kickers, tags, code).
+     Variable fonts are requested in index.html so one file covers the
+     whole weight range without a round-trip per weight.
+     ------------------------------------------------------------------ */
+  --font-display: "Sora", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ------------------------------------------------------------------
+     FLUID TYPE SCALE
+     Each step binds its size to the line-height and tracking that were
+     designed for it. Pairing is therefore impossible to get wrong: a
+     component cannot ask for a headline size and silently inherit
+     body-copy leading, which is what caused the current uneven rhythm.
+
+     Tracking is progressive, not global:
+       display  -0.038em .. -0.021em  (tight, keeps large type solid)
+       running   0                     (never negative - cramped reading)
+       micro     +0.06em               (tiny sizes need air, not squeeze)
+     ------------------------------------------------------------------ */
+
+  /* Hero <h1> name line. Upper bound is set by the 7-column hero grid cell
+     (~696px at max-w-7xl), not by the viewport: the fluid term is tuned so
+     "Habibur Rahman" never needs to wrap on a 320-375px phone. */
+  --text-hero: clamp(2.125rem, 0.95rem + 4.4vw, 3.75rem);
+  --text-hero--line-height: 1.04;
+  --text-hero--letter-spacing: -0.038em;
+
+  /* Hero role line. "MERN Stack Developer" is 20 characters - roughly 40%
+     wider than the name - so it gets its own step instead of inheriting
+     --text-hero. Without this it overflows the hero column and breaks onto
+     a second line. Caps at 40px, which keeps it comfortably one line at
+     desktop while still reading as a headline. */
+  --text-hero-role: clamp(1.25rem, 0.6rem + 2.4vw, 2.5rem);
+  --text-hero-role--line-height: 1.12;
+  --text-hero-role--letter-spacing: -0.028em;
+
+  /* CTA label inside a service card. Deliberately its own step below
+   --text-body-sm: "Inquire for Performance, Security & Code Audit" is 46
+   characters, and the 3-column services grid gives each card only ~328px
+   of inner width. At 14px the label needs ~375px and wrapped the button
+   onto two lines; 13px plus tighter button padding brings every service
+   label back to a single line. */
+  --text-cta: 0.78125rem;
+  --text-cta--line-height: 1.4;
+  --text-cta--letter-spacing: -0.008em;
+
+  /* Section <h2>: 28px -> 32px -> 36px, shared by every section.
+
+     Capped at 36px rather than the larger value this started at: the
+     longest heading (About - "Crafting resilient full-stack web
+     applications with clean architectural principles.", 75 characters)
+     needs ~2 x 900px to set in two lines at the old size, so it broke to
+     three. The headings now sit on max-w-4xl (896px) wrappers, which at
+     36px keeps even that longest one to a clean two lines while the
+     display face still reads as a headline. */
+  --text-section: clamp(1.875rem, 1.4rem + 1.3vw, 2.25rem);
+  --text-section--line-height: 1.18;
+  --text-section--letter-spacing: -0.03em;
+
+  /* Card <h3>: 17px -> 20px */
+  --text-card: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-card--line-height: 1.3;
+  --text-card--letter-spacing: -0.021em;
+
+  /* Section intro paragraph: 16px -> 18px */
+  --text-lead: clamp(1rem, 0.96rem + 0.25vw, 1.125rem);
+  --text-lead--line-height: 1.62;
+
+  /* Default running text. Was 12px (text-xs) almost everywhere - the
+     single biggest readability problem in the old build. */
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.72;
+
+  /* Dense card copy: 14px, still comfortable for multi-line reading. */
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.68;
+
+  /* Meta rows, form labels, secondary links: 12.5px */
+  --text-label: 0.78125rem;
+  --text-label--line-height: 1.55;
+
+  /* Badges, kickers, mono tags: 11px with positive tracking so the
+     letterforms keep their counters instead of closing up. */
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.5;
+  --text-micro--letter-spacing: 0.05em;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Inter exposes a real optical-size axis. Enabling this lets the
+       browser thicken stems at 11px and thin them at 64px automatically,
+       which is what separates crisp UI type from generic web type. */
+    font-optical-sizing: auto;
+    /* Keeps hash/anchor targets clear of the fixed 4-5rem navigation bar. */
+    scroll-padding-top: 5.5rem;
+    color-scheme: dark;
+  }
+
+  html.light {
+    color-scheme: light;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    /* Deliberately near-neutral. The previous build applied -0.011em to
+       the <html> element, which leaked negative tracking into running
+       copy and made long paragraphs feel tense. Optical tightening now
+       lives exclusively on display type (see the heading rules below). */
+    letter-spacing: -0.002em;
+    /* Long unbroken strings (email addresses, URLs) must never force a
+       horizontal scrollbar on narrow phones. */
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+  }
+
+  /* --- Display type -------------------------------------------------- */
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+    /* Fallback tracking for display runs that are not an h1/h2 - e.g. the
+       name lockup in a card. Small enough not to distort small sizes,
+       tight enough to keep the wordmark from looking loose. */
+    letter-spacing: -0.018em;
+  }
+
+  /* Tracking tightens as the type gets larger; this is the standard
+     optical correction - big glyphs have proportionally more side bearing
+     and read as loose if tracked at the same value as small ones. */
+  h1 {
+    font-size: var(--text-hero);
+    line-height: var(--text-hero--line-height);
+    letter-spacing: var(--text-hero--letter-spacing);
+  }
+
+  h2 {
+    font-size: var(--text-section);
+    line-height: var(--text-section--line-height);
+    letter-spacing: var(--text-section--letter-spacing);
+  }
+
+  h3 {
+    font-size: var(--text-card);
+    line-height: var(--text-card--line-height);
+    letter-spacing: var(--text-card--letter-spacing);
+  }
+
+  h4, h5, h6 {
+    line-height: 1.38;
+    letter-spacing: -0.012em;
+  }
+
+  /* --- Running text -------------------------------------------------- */
+  p, li {
+    line-height: var(--text-body--line-height);
+    /* `pretty` removes orphans and evens out the last few lines, which
+       matters most in the long About / Case Study paragraphs. */
+    text-wrap: pretty;
+  }
+
+  /* Mono runs get their natural metrics back - negative tracking that is
+     correct for a proportional face looks broken in a monospaced one. */
+  code, pre, kbd, samp, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-ligatures: none;
+    letter-spacing: 0;
+  }
+
+  /* Form controls do not inherit typography by default in most browsers. */
+  input, textarea, select, button {
+    font-family: inherit;
+  }
+}
+
+/* --- Reading measure --------------------------------------------------
+   Caps the line length of long-form copy so the eye can reliably find
+   the start of the next line. Without this, paragraphs inside wide grids
+   stretch to 100+ characters and become tiring to track. */
+@utility measure {
+  max-width: 68ch;
+}
+
+@utility measure-tight {
+  max-width: 58ch;
+}
+
+/* --- Global UI polish ------------------------------------------------ */
+
+/* A single, consistent focus ring for every interactive element. Tailwind
+   `focus-visible:ring-*` utilities still win over this where they are used,
+   so existing per-button rings keep working. */
+:focus-visible {
+  outline: 2px solid rgb(52 211 153 / 0.7);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Emerald-tinted selection reads as branded rather than the default blue. */
+::selection {
+  background-color: rgb(16 185 129 / 0.28);
+  color: inherit;
+}
+
+/* Firefox ignores ::-webkit-scrollbar, so declare the equivalent up front. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b #090d16;
+}
+
+.light {
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* Prevent iOS from inflating text in landscape, which would break the
+   fluid type scale on small screens. */
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Theme driven page background. These rules live outside `@layer base` so they
+   win over Tailwind utilities, and keep the first paint on-theme before React
+   mounts (index.html applies the `.dark` / `.light` class inline). */
+body {
+  background-color: #090d16;
+  color: #f1f5f9;
+}
+
+html.light body {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Keyframe animation for subtle fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Respect visitors who ask the OS to reduce motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Printing the CV: `ResumeModal` adds `resume-print` to <body> while it is open,
+   so `window.print()` outputs the CV alone. Pressing Ctrl+P on the page itself
+   is untouched because the selectors are scoped to that class. */
+@media print {
+  body.resume-print header,
+  body.resume-print #main-content,
+  body.resume-print footer,
+  body.resume-print .print-hide {
+    display: none !important;
+  }
+
+  body.resume-print .modal-shell {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+  }
+
+  body.resume-print .modal-panel,
+  body.resume-print .modal-panel * {
+    max-height: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-color: #d1d5db !important;
+    /* Muted dark-theme type would be nearly invisible on paper. */
+    color: #111827 !important;
+  }
+
+  body.resume-print .modal-panel {
+    border: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
