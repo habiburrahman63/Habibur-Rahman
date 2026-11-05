@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Download, Printer, Mail, Github, MapPin, CheckCircle2, PhoneCall } from 'lucide-react';
+import { X, Download, Printer, Mail, Github, MapPin, CheckCircle2, PhoneCall, Globe, Linkedin, FileText } from 'lucide-react';
 import { RESUME_DATA } from '../data/portfolioData';
 import { useDialogBehavior } from '../hooks/useDialogBehavior';
 
@@ -15,42 +15,57 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, darkM
 
   if (!isOpen) return null;
 
+  const handleDownloadPdf = () => {
+    const pdfUrl = `${import.meta.env.BASE_URL}Habibur_Rahman_Resume.pdf`;
+    const a = document.createElement('a');
+    a.href = pdfUrl;
+    a.download = 'Habibur_Rahman_Resume.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   const downloadTextResume = () => {
     const resumeText = `=====================================================
-${RESUME_DATA.name.toUpperCase()} - ${RESUME_DATA.role.toUpperCase()}
-Email: ${RESUME_DATA.email}
-Phone: ${RESUME_DATA.phoneDisplay}
-GitHub: ${RESUME_DATA.github}
-Location: ${RESUME_DATA.location}
+${RESUME_DATA.name.toUpperCase()}
+${RESUME_DATA.role.toUpperCase()}
+Email: ${RESUME_DATA.email} | Phone: ${RESUME_DATA.phoneDisplay}
+GitHub: ${RESUME_DATA.github} | Location: ${RESUME_DATA.location}
+Portfolio: ${RESUME_DATA.portfolio}
+LinkedIn: ${RESUME_DATA.linkedin}
 =====================================================
 
 PROFESSIONAL SUMMARY:
 ${RESUME_DATA.summary}
 
+TECHNICAL SKILLS:
+${RESUME_DATA.technicalSkills?.map(s => `${s.category}: ${s.skills}`).join('\n')}
+
 PROFESSIONAL EXPERIENCE:
 ${RESUME_DATA.experience.map(e => `
-- ${e.role} | ${e.company} (${e.period})
+- ${e.role} (${e.period})
+  ${e.company}${e.subtext ? ` · ${e.subtext}` : ''}
 ${e.points.map(p => `  * ${p}`).join('\n')}
 `).join('\n')}
 
 EDUCATION:
 ${RESUME_DATA.education.map(ed => `
-- ${ed.degree}
-  ${ed.institution} (${ed.period})
+- ${ed.degree} | ${ed.institution} (${ed.period})
   ${ed.details}
 `).join('\n')}
 
-CERTIFICATIONS & DOMAIN RIGOR:
+CERTIFICATIONS:
 ${RESUME_DATA.certifications.map(c => `* ${c}`).join('\n')}
 
-Generated from Habibur Rahman Portfolio.
+=====================================================
+Generated from Habibur Rahman Portfolio (${RESUME_DATA.portfolio}).
 `;
 
     const blob = new Blob([resumeText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Habibur_Rahman_MERN_Stack_Resume.txt`;
+    a.download = `Habibur_Rahman_Resume.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -78,9 +93,9 @@ Generated from Habibur Rahman Portfolio.
         }`}
       >
         {/* Header Actions */}
-        <div className="print-hide flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/80 sticky top-0 bg-inherit z-10">
+        <div className="print-hide flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/80 sticky top-0 bg-inherit z-10 backdrop-blur-md">
           <div className="flex items-center gap-2">
-            <span className="text-micro font-semibold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-500">
+            <span className="text-micro font-semibold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-500 font-mono">
               Curriculum Vitae
             </span>
           </div>
@@ -95,10 +110,18 @@ Generated from Habibur Rahman Portfolio.
             </button>
             <button
               onClick={downloadTextResume}
-              className="px-3.5 py-2.5 rounded-lg bg-emerald-500 text-slate-950 font-semibold hover:bg-emerald-400 transition-colors text-body-sm flex items-center gap-1.5 shadow-sm"
+              title="Download TXT format"
+              className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-body-sm flex items-center gap-1.5"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">TXT</span>
+            </button>
+            <button
+              onClick={handleDownloadPdf}
+              className="px-3.5 py-2 rounded-lg bg-emerald-500 text-slate-950 font-semibold hover:bg-emerald-400 transition-colors text-body-sm flex items-center gap-1.5 shadow-sm"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download CV</span>
+              <span>Download PDF</span>
             </button>
             <button
               onClick={onClose}
@@ -111,28 +134,35 @@ Generated from Habibur Rahman Portfolio.
         </div>
 
         {/* Printable/Viewable Body */}
-        <div className="p-6 sm:p-10 space-y-8 max-h-[82vh] overflow-y-auto print:max-h-none print:overflow-visible">
+        <div className="p-6 sm:p-10 space-y-7 max-h-[82vh] overflow-y-auto print:max-h-none print:overflow-visible print:p-0 print:space-y-5">
           
           {/* Header Profile */}
-          <div className="border-b border-slate-200 dark:border-slate-800/80 pb-6">
-            <h1 id="resume-modal-title" className="text-section font-display font-bold">
+          <div className="border-b border-slate-200 dark:border-slate-800/80 pb-5">
+            <h1 id="resume-modal-title" className="text-section font-display font-bold uppercase tracking-tight">
               {RESUME_DATA.name}
             </h1>
-            <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
+            <p className="text-base font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
               {RESUME_DATA.role}
             </p>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-label text-slate-600 dark:text-slate-400 mt-3">
-              <span className="flex items-center gap-1">
+            {/* Line 1: Email | Phone | GitHub | Location */}
+            <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-label text-slate-600 dark:text-slate-400 mt-2.5">
+              <a
+                href={`mailto:${RESUME_DATA.email}`}
+                className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
                 <Mail className="w-3.5 h-3.5" />
-                {RESUME_DATA.email}
-              </span>
-              <span aria-hidden="true">·</span>
-              <a href={RESUME_DATA.phoneHref} className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-                <PhoneCall className="w-3.5 h-3.5" />
-                {RESUME_DATA.phoneDisplay}
+                <span>{RESUME_DATA.email}</span>
               </a>
-              <span aria-hidden="true">·</span>
+              <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">|</span>
+              <a
+                href={RESUME_DATA.phoneHref}
+                className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
+                <PhoneCall className="w-3.5 h-3.5" />
+                <span>{RESUME_DATA.phoneDisplay}</span>
+              </a>
+              <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">|</span>
               <a
                 href={RESUME_DATA.github}
                 target="_blank"
@@ -140,41 +170,90 @@ Generated from Habibur Rahman Portfolio.
                 className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
               >
                 <Github className="w-3.5 h-3.5" />
-                {RESUME_DATA.github.replace('https://', '')}
+                <span>{RESUME_DATA.githubDisplay}</span>
               </a>
-              <span aria-hidden="true">·</span>
+              <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">|</span>
               <span className="flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5" />
-                {RESUME_DATA.location}
+                <span>{RESUME_DATA.location}</span>
               </span>
+            </div>
+
+            {/* Line 2: Portfolio | LinkedIn */}
+            <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-label text-slate-600 dark:text-slate-400 mt-1.5">
+              <a
+                href={RESUME_DATA.portfolio}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
+                <Globe className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Portfolio: <span className="underline decoration-slate-400/50">{RESUME_DATA.portfolioDisplay}</span></span>
+              </a>
+              <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">|</span>
+              <a
+                href={RESUME_DATA.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
+                <Linkedin className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Linkedin: <span className="underline decoration-slate-400/50">{RESUME_DATA.linkedinDisplay}</span></span>
+              </a>
             </div>
           </div>
 
           {/* Professional Summary */}
           <div>
-            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-2 font-mono">
+            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-2 font-mono border-b border-slate-200 dark:border-slate-800 pb-1">
               Professional Summary
             </h2>
-            <p className="text-body-sm text-slate-700 dark:text-slate-300">
+            <p className="text-body-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
               {RESUME_DATA.summary}
             </p>
           </div>
 
+          {/* Technical Skills */}
+          <div>
+            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-3 font-mono border-b border-slate-200 dark:border-slate-800 pb-1">
+              Technical Skills
+            </h2>
+            <div className="space-y-1.5 text-body-sm">
+              {RESUME_DATA.technicalSkills?.map((skill, idx) => (
+                <div key={idx} className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-0.5 sm:gap-3 items-baseline">
+                  <span className="font-semibold text-slate-900 dark:text-slate-100 font-mono text-micro uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                    {skill.category}
+                  </span>
+                  <span className="text-slate-700 dark:text-slate-300">
+                    {skill.skills}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Professional Experience */}
           <div>
-            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-4 font-mono">
-              Work Experience
+            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-3 font-mono border-b border-slate-200 dark:border-slate-800 pb-1">
+              Professional Experience
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-5">
               {RESUME_DATA.experience.map((exp, idx) => (
-                <div key={idx} className="space-y-2">
+                <div key={idx} className="space-y-1.5">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-body-sm font-semibold">
-                    <span>{exp.role} · <span className="text-emerald-600 dark:text-emerald-400 font-medium">{exp.company}</span></span>
+                    <span className="text-slate-900 dark:text-slate-100 font-bold">{exp.role}</span>
                     <span className="font-mono text-micro text-slate-600 dark:text-slate-400">{exp.period}</span>
                   </div>
-                  <ul className="space-y-2 text-body-sm text-slate-700 dark:text-slate-300 list-disc list-inside">
+                  {exp.company && (
+                    <div className="text-label text-slate-500 dark:text-slate-400 italic">
+                      {exp.company}{exp.subtext ? ` · ${exp.subtext}` : ''}
+                    </div>
+                  )}
+                  <ul className="space-y-1.5 text-body-sm text-slate-700 dark:text-slate-300 list-disc list-inside">
                     {exp.points.map((p, pIdx) => (
-                      <li key={pIdx} className="leading-relaxed">{p}</li>
+                      <li key={pIdx} className="leading-relaxed">
+                        {p}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -184,18 +263,18 @@ Generated from Habibur Rahman Portfolio.
 
           {/* Education */}
           <div>
-            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-3 font-mono">
+            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-3 font-mono border-b border-slate-200 dark:border-slate-800 pb-1">
               Education
             </h2>
             <div className="space-y-3">
               {RESUME_DATA.education.map((ed, idx) => (
                 <div key={idx} className="text-body-sm">
-                  <div className="flex items-center justify-between gap-3 font-semibold">
-                    <span>{ed.degree}</span>
-                    <span className="font-mono text-micro text-slate-600 dark:text-slate-400">{ed.period}</span>
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 font-semibold">
+                    <span className="text-slate-900 dark:text-slate-100 font-bold">{ed.degree}</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-medium text-body-sm">{ed.institution}</span>
                   </div>
-                  <p className="text-body-sm text-emerald-600/90 dark:text-emerald-400/90 mt-1">{ed.institution}</p>
-                  <p className="text-label text-slate-600 dark:text-slate-400 mt-1">{ed.details}</p>
+                  <p className="text-label text-slate-500 dark:text-slate-400 italic">{ed.period}</p>
+                  <p className="text-body-sm text-slate-700 dark:text-slate-300 mt-1">{ed.details}</p>
                 </div>
               ))}
             </div>
@@ -203,13 +282,13 @@ Generated from Habibur Rahman Portfolio.
 
           {/* Certifications */}
           <div>
-            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-3 font-mono">
-              Certifications & Domain Rigor
+            <h2 className="text-micro font-bold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400 mb-3 font-mono border-b border-slate-200 dark:border-slate-800 pb-1">
+              Certifications
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-body-sm text-slate-700 dark:text-slate-300">
               {RESUME_DATA.certifications.map((cert, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <div key={idx} className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-1" />
                   <span>{cert}</span>
                 </div>
               ))}

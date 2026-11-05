@@ -7,7 +7,7 @@ import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Services } from './components/Services';
 import { Process } from './components/Process';
-import { Testimonials } from './components/Testimonials';
+import { Team } from './components/Team';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { useScrollProgressBar } from './hooks/useScrollProgressBar';
@@ -157,8 +157,8 @@ export default function App() {
         {/* Development Workflow Process */}
         <Process darkMode={darkMode} />
 
-        {/* Attributable Client & Peer Testimonials */}
-        <Testimonials darkMode={darkMode} />
+        {/* Our Team Member Section */}
+        <Team darkMode={darkMode} />
 
         {/* Contact Section */}
         <Contact

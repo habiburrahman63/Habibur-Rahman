@@ -1,4 +1,4 @@
-import { Project, SkillItem, ServiceItem, ProcessStep, TestimonialItem, DeveloperStat } from '../types/portfolio';
+import { Project, SkillItem, ServiceItem, ProcessStep, TestimonialItem, TeamMember, DeveloperStat } from '../types/portfolio';
 
 /**
  * Display-sized, compressed JPEGs served from `public/images`.
@@ -856,6 +856,88 @@ export const WORK_PROCESS: ProcessStep[] = [
   }
 ];
 
+const TEAM_IMAGE_BASE = `${IMAGE_BASE}team/`;
+
+export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'team-1',
+    name: 'Tarak Rahman',
+    role: 'MERN Stack Developer',
+    username: 'Tarak95',
+    githubUrl: 'https://github.com/Tarak95',
+    avatar: `${TEAM_IMAGE_BASE}Tarak95.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/217224715?v=4',
+    bio: 'CSE Student & developer passionate about turning ideas into real-world web applications.',
+    tags: ['MERN Stack', 'React.js', 'Node.js', 'MongoDB']
+  },
+  {
+    id: 'team-2',
+    name: 'Foyjur Rahman',
+    role: 'Frontend & MERN Developer',
+    username: 'jisaunodb',
+    githubUrl: 'https://github.com/jisaunodb',
+    avatar: `${TEAM_IMAGE_BASE}jisaunodb.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/153702863?v=4',
+    bio: 'Building clean, responsive user interfaces with modern React, JavaScript, and Node.js.',
+    tags: ['React', 'JavaScript', 'Tailwind CSS', 'Node.js']
+  },
+  {
+    id: 'team-3',
+    name: 'Shahzahan Siraj',
+    role: 'Full-Stack Developer',
+    username: 'shahzahandev',
+    githubUrl: 'https://github.com/shahzahandev',
+    avatar: `${TEAM_IMAGE_BASE}shahzahandev.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/217482826?v=4',
+    bio: 'Committed developer focused on scalable backend architectures and full-stack solutions.',
+    tags: ['Full-Stack', 'Express.js', 'REST APIs', 'MongoDB']
+  },
+  {
+    id: 'team-4',
+    name: 'Foysal Ahmed',
+    role: 'Front-End Developer',
+    username: 'FoysalAhmedDev',
+    githubUrl: 'https://github.com/FoysalAhmedDev',
+    avatar: `${TEAM_IMAGE_BASE}FoysalAhmedDev.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/222110602?v=4',
+    bio: 'Expert in building responsive, user-focused web interfaces with modern JavaScript & React.',
+    tags: ['Front-End', 'React', 'JavaScript', 'UI/UX']
+  },
+  {
+    id: 'team-5',
+    name: 'Syed Rafsun Iyajdani Siyam',
+    role: 'Frontend Developer',
+    username: 'devrafsun10',
+    githubUrl: 'https://github.com/devrafsun10',
+    avatar: `${TEAM_IMAGE_BASE}devrafsun10.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/216926137?v=4',
+    bio: 'Tech enthusiast engineering slick frontend components and exploring MERN stack mastery.',
+    tags: ['Frontend', 'React.js', 'Tailwind', 'JavaScript']
+  },
+  {
+    id: 'team-6',
+    name: 'Md. Shofiul Islam',
+    role: 'MERN Stack Developer',
+    username: 'shofiulislamdev',
+    githubUrl: 'https://github.com/shofiulislamdev',
+    avatar: `${TEAM_IMAGE_BASE}shofiulislamdev.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/217026049?v=4',
+    bio: 'Computer engineer delivering scalable web solutions, clean RESTful APIs, and responsive UIs.',
+    tags: ['MERN Stack', 'TypeScript', 'Node.js', 'React']
+  },
+  {
+    id: 'team-7',
+    name: 'Ashraf Shahin',
+    role: 'Digital Growth & Tech Lead',
+    username: 'ashrafshahin',
+    githubUrl: 'https://github.com/ashrafshahin',
+    avatar: `${TEAM_IMAGE_BASE}ashrafshahin.jpg`,
+    avatarFallback: 'https://avatars.githubusercontent.com/u/60262848?v=4',
+    bio: 'Combining business insight with technical depth to drive operational efficiency and digital growth.',
+    tags: ['Architecture', 'Digital Growth', 'Web Systems']
+  }
+];
+
 export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 'test-1',
@@ -888,44 +970,78 @@ export const TESTIMONIALS: TestimonialItem[] = [
 
 export const RESUME_DATA = {
   name: 'Habibur Rahman',
-  role: 'MERN Stack Developer',
+  role: 'MERN Stack Developer · AI-Powered Web Applications',
   email: 'habib.bd.dev@gmail.com',
   phone: '01752652462',
   phoneDisplay: '+880 1752-652462',
   phoneHref: 'tel:+8801752652462',
   github: 'https://github.com/habiburrahman63',
-  linkedin: 'https://www.linkedin.com/in/habibur-rahman-mern',
-  location: 'Remote · Worldwide Available',
-  summary: 'Passionate and detail-oriented MERN Stack Developer with comprehensive hands-on experience designing and deploying scalable web applications. Proficient in creating modular React.js frontends, engineering robust Node.js/Express.js RESTful APIs, modeling MongoDB databases, and implementing airtight security protocols.',
+  githubDisplay: 'github.com/habiburrahman63',
+  linkedin: 'https://www.linkedin.com/in/habibur-rahman-793127420',
+  linkedinDisplay: 'linkedin.com/in/habibur-rahman-793127420',
+  portfolio: 'https://habibur-rahman-lovat.vercel.app',
+  portfolioDisplay: 'habibur-rahman-lovat.vercel.app',
+  location: 'Remote · Worldwide',
+  summary:
+    'MERN stack developer who has delivered 15+ full-stack web applications for international clients, from secure Node.js/Express REST APIs to accessible, mobile-first React interfaces. Optimizes MongoDB data models and aggregation pipelines (up to 55% lower query latency) and secures APIs with JWT, bcrypt and role-based authorization. Uses AI-assisted development, prompt engineering and LLM API integration to ship faster while holding to production standards for code quality, security and testing. Seeking remote full-stack or frontend roles.',
+  technicalSkills: [
+    {
+      category: 'Frontend',
+      skills: 'React.js, Redux Toolkit, React Router, Tailwind CSS, Framer Motion, WCAG AA accessibility'
+    },
+    {
+      category: 'Backend',
+      skills: 'Node.js, Express.js, RESTful API design, JWT authentication, bcrypt, authorization middleware (RBAC)'
+    },
+    {
+      category: 'Database',
+      skills: 'MongoDB, Mongoose, aggregation pipelines, indexing, query optimization'
+    },
+    {
+      category: 'Integrations',
+      skills: 'Cloudinary, payment gateways, social authentication (OAuth)'
+    },
+    {
+      category: 'DevOps',
+      skills: 'CI/CD automation, Vercel (frontend), Render (backend)'
+    },
+    {
+      category: 'AI & Automation',
+      skills: 'AI-assisted development, prompt engineering, LLM API integration, workflow automation'
+    }
+  ],
   experience: [
     {
       role: 'Full-Stack MERN Developer (Freelance)',
       period: '2023 – Present',
-      company: 'Independent Client Engagements',
+      company: 'Independent client engagements',
+      subtext: 'International clients',
       points: [
-        'Architected and deployed 15+ full-stack web applications and interactive React SPAs for international clients.',
-        'Engineered secure RESTful APIs with JWT authentication, bcrypt password hashing, and custom authorization middlewares.',
-        'Optimized MongoDB aggregation pipelines and indexing strategies, reducing backend query latency by up to 55%.',
-        'Implemented modern, mobile-first user interfaces with Tailwind CSS and Framer Motion, adhering to WCAG AA accessibility standards.'
+        'Designed, built and deployed 15+ full-stack web applications and React single-page apps for international clients.',
+        'Built secure REST APIs with JWT authentication, bcrypt password hashing and custom role-based authorization middleware.',
+        'Reduced backend query latency by up to 55% by tuning MongoDB aggregation pipelines and indexes.',
+        'Delivered mobile-first interfaces with Tailwind CSS and Framer Motion that meet WCAG AA accessibility standards.',
+        'Applied AI-assisted development (scaffolding, debugging, documentation, query and security review) and integrated LLM APIs for features such as chatbots, content generation and smart search, reviewing all output before release.'
       ]
     },
     {
       role: 'Frontend & API Engineer',
       period: '2022 – 2023',
-      company: 'Web Application Projects',
+      company: 'Web application projects',
+      subtext: '',
       points: [
-        'Built dynamic single-page applications utilizing React, Redux Toolkit, and React Router.',
-        'Integrated third-party APIs including Cloudinary for image transformations, payment gateways, and social auth.',
-        'Automated CI/CD build workflows deploying frontend builds to Vercel and backend services to Render.'
+        'Built dynamic single-page applications with React, Redux Toolkit and React Router.',
+        'Integrated third-party services including Cloudinary image transformations, payment gateways and social login.',
+        'Automated CI/CD workflows, deploying frontends to Vercel and backends to Render.'
       ]
     }
   ],
   education: [
     {
-      degree: 'Bachelor of Science in Computer Science & Engineering',
-      institution: 'Premier University',
+      degree: 'Diploma in Computer Science & Engineering',
+      institution: 'Sirajganj Institute of Technology (SIT)',
       period: 'Graduated with Honors',
-      details: 'Focused on Data Structures, Algorithms, Software Engineering, Database Systems, and Web Technologies.'
+      details: 'Coursework: Data Structures, Algorithms, Software Engineering, Database Systems, Web Technologies'
     }
   ],
   certifications: [

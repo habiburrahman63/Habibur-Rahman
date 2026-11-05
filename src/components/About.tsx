@@ -31,8 +31,8 @@ const HIGHLIGHTS = [
   },
   {
     year: 'Education',
-    title: 'B.Sc. in Computer Science & Engineering',
-    desc: 'Groundwork in algorithms, relational & non-relational database management, data structures, and computer networks.',
+    title: 'Diploma in Computer Science & Engineering',
+    desc: 'Sirajganj Institute of Technology (SIT) · Groundwork in data structures, algorithms, software engineering, database systems, and web technologies.',
   },
 ];
 

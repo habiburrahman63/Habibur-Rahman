@@ -70,6 +70,18 @@ export interface TestimonialItem {
   avatarInitials: string;
 }
 
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  username: string;
+  githubUrl: string;
+  avatar: string;
+  avatarFallback: string;
+  bio: string;
+  tags: string[];
+}
+
 export interface DeveloperStat {
   value: string;
   label: string;
