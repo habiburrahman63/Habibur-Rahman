@@ -261,7 +261,7 @@ export const PROJECTS: Project[] = [
     image: apiDashboardImg,
     tags: ['Node.js', 'Express.js', 'MongoDB', 'REST API', 'JWT Inspector', 'Chart Analytics'],
     githubUrl: 'https://github.com/habiburrahman63/devpulse-console',
-    liveUrl: 'https://devpulse-console.vercel.app',
+    liveUrl: 'https://dev-pulse-api-i1ae.vercel.app',
     featured: true,
     metrics: [
       { label: 'Latency Tracking', value: 'Real-Time Endpoint Stats' },
