@@ -204,7 +204,7 @@ export const PROJECTS: Project[] = [
     image: ecommerceImg,
     tags: ['React.js', 'Redux Toolkit', 'Node.js', 'Express.js', 'MongoDB', 'Admin Dashboard', 'Stripe Ready'],
     githubUrl: 'https://github.com/habiburrahman63/aura-commerce',
-    liveUrl: 'https://aura-commerce-mern.vercel.app',
+    liveUrl: 'https://ecobazar-roan.vercel.app',
     featured: true,
     metrics: [
       { label: 'Catalog Search', value: 'Multi-Facet Filtering' },
