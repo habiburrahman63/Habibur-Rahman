@@ -15,63 +15,7 @@ const portraitImg = `${IMAGE_BASE}portrait.jpg`;
 const socialSpaceImg = `${IMAGE_BASE}project-social-space.jpg`;
 const ecommerceImg = `${IMAGE_BASE}project-ecommerce.jpg`;
 const apiDashboardImg = `${IMAGE_BASE}project-api-dashboard.jpg`;
-
-/**
- * TaskFlow Pro had no artwork of its own and was pointing at the Social Space
- * screenshot, so the same image was shown for two different projects. This
- * inline SVG banner is generated instead: it is unique to that project, costs
- * no extra network request, and stays crisp at any size.
- */
-const taskflowImg = `data:image/svg+xml,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="TaskFlow Pro Kanban board interface">
-    <rect width="1200" height="675" fill="#0B0F19"/>
-    <rect x="0" y="0" width="1200" height="64" fill="#111827"/>
-    <circle cx="40" cy="32" r="7" fill="#34d399"/>
-    <text x="62" y="40" font-family="Segoe UI, sans-serif" font-size="22" font-weight="700" fill="#F1F5F9">TaskFlow Pro</text>
-    <text x="1090" y="40" font-family="Segoe UI, sans-serif" font-size="17" fill="#64748B" text-anchor="end">Sprint 24</text>
-    <g>
-      <rect x="40" y="100" width="250" height="535" rx="14" fill="#0F172A" stroke="#1E293B"/>
-      <text x="60" y="136" font-family="Segoe UI, sans-serif" font-size="17" font-weight="600" fill="#94A3B8">Backlog</text>
-      <rect x="56" y="160" width="218" height="86" rx="10" fill="#111827" stroke="#1E293B"/>
-      <text x="72" y="192" font-family="Segoe UI, sans-serif" font-size="16" fill="#E2E8F0">Refactor auth flow</text>
-      <text x="72" y="222" font-family="Segoe UI, sans-serif" font-size="13" fill="#F59E0B">High</text>
-      <rect x="56" y="258" width="218" height="86" rx="10" fill="#111827" stroke="#1E293B"/>
-      <text x="72" y="290" font-family="Segoe UI, sans-serif" font-size="16" fill="#E2E8F0">Add API caching</text>
-      <text x="72" y="320" font-family="Segoe UI, sans-serif" font-size="13" fill="#64748B">Normal</text>
-      <rect x="56" y="356" width="218" height="86" rx="10" fill="#111827" stroke="#1E293B"/>
-      <text x="72" y="388" font-family="Segoe UI, sans-serif" font-size="16" fill="#E2E8F0">Update docs</text>
-      <text x="72" y="418" font-family="Segoe UI, sans-serif" font-size="13" fill="#64748B">Low</text>
-    </g>
-    <g>
-      <rect x="316" y="100" width="250" height="535" rx="14" fill="#0F172A" stroke="#34d399" stroke-opacity="0.45"/>
-      <text x="336" y="136" font-family="Segoe UI, sans-serif" font-size="17" font-weight="600" fill="#34D399">In Progress</text>
-      <rect x="332" y="160" width="218" height="100" rx="10" fill="#0B1A16" stroke="#34d399" stroke-opacity="0.5"/>
-      <text x="348" y="194" font-family="Segoe UI, sans-serif" font-size="16" fill="#ECFDF5">Kanban board</text>
-      <text x="348" y="222" font-family="Segoe UI, sans-serif" font-size="16" fill="#ECFDF5">drag &amp; drop</text>
-      <text x="348" y="246" font-family="Segoe UI, sans-serif" font-size="13" fill="#34D399">Urgent</text>
-    </g>
-    <g>
-      <rect x="592" y="100" width="250" height="535" rx="14" fill="#0F172A" stroke="#1E293B"/>
-      <text x="612" y="136" font-family="Segoe UI, sans-serif" font-size="17" font-weight="600" fill="#94A3B8">Code Review</text>
-      <rect x="608" y="160" width="218" height="86" rx="10" fill="#111827" stroke="#1E293B"/>
-      <text x="624" y="194" font-family="Segoe UI, sans-serif" font-size="16" fill="#E2E8F0">REST sync API</text>
-      <text x="624" y="222" font-family="Segoe UI, sans-serif" font-size="13" fill="#38BDF8">2 reviewers</text>
-      <rect x="608" y="258" width="218" height="86" rx="10" fill="#111827" stroke="#1E293B"/>
-      <text x="624" y="292" font-family="Segoe UI, sans-serif" font-size="16" fill="#E2E8F0">Sprint report</text>
-      <text x="624" y="320" font-family="Segoe UI, sans-serif" font-size="13" fill="#64748B">Normal</text>
-    </g>
-    <g>
-      <rect x="868" y="100" width="250" height="535" rx="14" fill="#0F172A" stroke="#1E293B"/>
-      <text x="888" y="136" font-family="Segoe UI, sans-serif" font-size="17" font-weight="600" fill="#94A3B8">Done</text>
-      <rect x="884" y="160" width="218" height="86" rx="10" fill="#0F1F16" stroke="#34d399" stroke-opacity="0.3"/>
-      <text x="900" y="194" font-family="Segoe UI, sans-serif" font-size="16" fill="#A7F3D0">Design tokens</text>
-      <text x="900" y="222" font-family="Segoe UI, sans-serif" font-size="13" fill="#34D399">Shipped</text>
-      <rect x="884" y="258" width="218" height="86" rx="10" fill="#0F1F16" stroke="#34d399" stroke-opacity="0.3"/>
-      <text x="900" y="292" font-family="Segoe UI, sans-serif" font-size="16" fill="#A7F3D0">Optimistic UI</text>
-      <text x="900" y="320" font-family="Segoe UI, sans-serif" font-size="13" fill="#34D399">Shipped</text>
-    </g>
-  </svg>`,
-)}`;
+const typenexImg = `${IMAGE_BASE}project-typenex.jpg`;
 
 export const PERSONAL_INFO = {
   name: 'Habibur Rahman',
@@ -304,52 +248,53 @@ export const PROJECTS: Project[] = [
     }
   },
   {
-    id: 'taskflow-pro',
-    title: 'TaskFlow Pro',
-    subtitle: 'Agile Kanban & Sprint Workflow Manager',
+    id: 'typenex-academy',
+    title: 'Typenex',
+    subtitle: 'Typing & Digital Skills Academy',
     category: 'Frontend & UI',
-    description: 'A collaborative project management application featuring drag-and-drop Kanban workflow boards, task priority categorization, sprint timeline overviews, and member assignments with clean, responsive dark-mode ergonomics.',
-    image: taskflowImg,
-    tags: ['React.js', 'Tailwind CSS', 'Drag & Drop', 'State Management', 'REST API'],
-    githubUrl: 'https://github.com/habiburrahman63/taskflow-pro',
-    liveUrl: 'https://taskflow-pro.vercel.app',
+    description: 'An enterprise-grade touch-typing and digital skills platform featuring progressive lessons, standardized speed benchmarking tests, real-time WPM/accuracy tracking, interactive typing games, and educator classroom management.',
+    image: typenexImg,
+    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Typing Engine', 'Analytics', 'Classroom Tools'],
+    githubUrl: 'https://github.com/habiburrahman63/Type-Text',
+    liveUrl: 'https://type-test-seven.vercel.app',
     featured: false,
     metrics: [
-      { label: 'Interaction', value: 'Drag-and-Drop Kanban' },
-      { label: 'Organization', value: 'Sprints & Labels' },
-      { label: 'Sync', value: 'Optimistic Local Cache' }
+      { label: 'Real-Time WPM', value: 'Live Keystroke Engine' },
+      { label: 'Curriculum', value: 'Lessons, Tests & Games' },
+      { label: 'Administration', value: 'Classroom & Certificates' }
     ],
     caseStudy: {
-      overview: 'TaskFlow Pro provides engineering and product teams with an intuitive, distraction-free environment to organize sprints, manage backlogs, and track task progression.',
-      problem: 'Most modern project management tools are burdened with feature bloat, high latency, and confusing navigation.',
-      solution: 'Crafted a hyper-responsive React SPA with immediate drag-and-drop column transfers, persistent local caching, and a RESTful Express synchronization backend.',
+      overview: 'Typenex (Typenex Academy) provides students, professionals, and educators with a modern, high-precision environment to master touch typing and essential digital skills through structured lessons, standardized speed tests, and real-time telemetry.',
+      problem: 'Traditional typing tutors often suffer from outdated user interfaces, rigid testing routines, lack of granular keystroke telemetry, and no intuitive classroom or student progress tracking for teachers.',
+      solution: 'Engineered a hyper-responsive React SPA with a real-time keystroke evaluation engine, dynamic WPM and accuracy trend visualization, interactive arcade games, and educator classroom controls with CSV reporting.',
       architecture: [
-        'React frontend with custom drag-and-drop event handlers and keyboard shortcuts',
-        'Express REST API for persistent board synchronization and member assignment',
-        'MongoDB schema modeling with parent-child board, column, and card relationships'
+        'React frontend with custom keystroke evaluation and real-time WPM/accuracy calculation engine',
+        'State persistence layer managing lesson progression, test history, certifications, and daily streak tracking',
+        'Educator management module providing instant classroom join codes and student performance telemetry'
       ],
       technologies: {
-        frontend: ['React.js', 'Tailwind CSS', 'Lucide React', 'HTML5 Drag & Drop API'],
-        backend: ['Node.js', 'Express.js', 'Mongoose'],
-        database: ['MongoDB Atlas'],
+        frontend: ['React.js', 'TypeScript', 'Tailwind CSS', 'Lucide React', 'SVG Sparklines'],
+        backend: ['REST API', 'Node.js', 'Vercel Serverless'],
+        database: ['LocalStorage Engine', 'State Persistence', 'CSV Data Export'],
         devops: ['Vercel', 'GitHub Actions']
       },
       features: [
-        'Multi-column Kanban boards (Backlog, In Progress, Code Review, Done)',
-        'Fluid drag-and-drop card movements between swimlanes',
-        'Custom labels, priority tags (Urgent, High, Normal, Low), and due dates',
-        'Fast keyword search and tag filtering across cards',
-        'Activity history trail tracking recent card updates'
+        'Real-time keystroke evaluation engine measuring raw/net WPM, accuracy percentage, and error distribution',
+        'Progressive touch-typing curriculum with multi-stage lessons and custom practice modules',
+        'Standardized timed typing tests (15s, 30s, 60s) with live speed trend visualization',
+        'Typing Racer arcade game with real-time velocity tracking and XP gamification',
+        'Teacher administration suite: classroom creation, instant join codes, student roster management, and CSV exports',
+        'Automated certificate generation with unique verification codes and completion ledgers'
       ],
       challenges: [
         {
-          challenge: 'Maintaining card ordering indices when shifting items between columns.',
-          resolution: 'Implemented fractional positional indexing so moving a card between two items assigns a mid-point index, eliminating the need to update all sibling records in the database.'
+          challenge: 'Eliminating UI re-render micro-stutters during high-speed typing bursts exceeding 100+ WPM.',
+          resolution: 'Decoupled keystroke telemetry buffering from the main React render cycle, updating speed charts at throttled intervals while maintaining immediate cursor responsiveness.'
         }
       ],
       outcomes: [
-        'Instantaneous UI response with zero perceived drag lag',
-        'Fully keyboard accessible with arrow keys and shortcut triggers'
+        'Zero perceived input latency during intensive typing sessions with silky-smooth 60 FPS animations',
+        'Comprehensive typing education platform supporting both individual learners and full classroom cohorts'
       ]
     }
   }
